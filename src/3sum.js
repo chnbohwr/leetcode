@@ -1,39 +1,41 @@
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-var threeSum = function (nums) {
-  var rtn = [];
+const threeSum = (nums) => {
+  var answer = [];
   if (nums.length < 3) {
-    return rtn;
+    return answer;
   }
   nums = nums.sort((a, b) => (a - b));
-  for (var i = 0; i < nums.length - 2; i++) {
-    if (nums[i] > 0) {
-      return rtn;
+  const maxCursor = nums.length - 1;
+  for (let a = 0; a <= maxCursor; a++) {
+    if (nums[a] > 0) {
+      return answer;
     }
-    if (i > 0 && nums[i] == nums[i - 1]) {
+    if (a > 0 && nums[a] === nums[a - 1]) {
       continue;
     }
-    for (var j = i + 1, k = nums.length - 1; j < k;) {
-      if (nums[i] + nums[j] + nums[k] === 0) {
-        rtn.push([nums[i], nums[j], nums[k]]);
-        j++;
-        k--;
-        while (j < k && nums[j] == nums[j - 1]) {
-          j++;
+    let b = a + 1, c = maxCursor;
+    while (b < c) {
+      const numa = nums[a];
+      const numb = nums[b];
+      const numc = nums[c];
+      const ans = numa + numb + numc;
+      if (ans === 0) {
+        answer.push([numa, numb, numc]);
+        c--;
+        b++;
+        while (b < c && nums[b] === nums[b - 1]) {
+          b++;
         }
-        while (j < k && nums[k] == nums[k + 1]) {
-          k--;
+        while (b < c && nums[c] === nums[c + 1]) {
+          c--;
         }
-      } else if (nums[i] + nums[j] + nums[k] > 0) {
-        k--;
+      } else if (ans > 0) {
+        c--;
       } else {
-        j++;
+        b++
       }
     }
   }
-  return rtn;
-};
+  return answer;
+}
 
 module.exports = threeSum;
