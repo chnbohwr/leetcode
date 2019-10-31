@@ -1,7 +1,6 @@
 {
   "name": "leetcode",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -21,6 +20,9 @@
   },
   "homepage": "https://github.com/chnbohwr/leetcode#readme",
   "dependencies": {
-    "jest": "^24.9.0"
-  }
+    "jest": "^24.9.0",
+    "leetcode": "^2.0.0"
+  },
+  "devDependencies": {},
+  "description": ""
 }
