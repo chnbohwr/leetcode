@@ -13,7 +13,7 @@ describe('merge-two-sorted-lists', () => {
   });
   test('should ', () => {
     const l1 = leetcode.List.create([]);
-    console.log(l1);
+    // console.log(l1);
     const l2 = leetcode.List.create([]);
 
     const result = func(l1, l2);

@@ -27,7 +27,7 @@ var threeSumClosest = function (nums, target) {
         answer = total;
       }
       if (total === target) {
-        console.log('find real answer', numa, numb, numc);
+        // console.log('find real answer', numa, numb, numc);
         return target;
       } else if (total > target) {
         c--;
