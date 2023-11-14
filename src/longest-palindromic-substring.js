@@ -4,35 +4,59 @@
  * @return {string}
  */
 
-const getPalindrome = (cursor, newStr) => {
-  let left = cursor - 1, right = cursor + 1, ans = newStr[cursor];
-
-  while (left > 0 && right < newStr.length) {
-    const charL = newStr[left];
-    const charR = newStr[right];
-    if (charL === charR) {
-      ans = charL + ans + charR;
-    } else {
-      break;
-    }
-    right++;
-    left--;
-  }
-
-  return ans.replace(/#/g, '');
-}
-
 var longestPalindrome = function (s) {
-  const newStr = '#' + s.split('').join('#') + '#';
-  let cursor = 0;
-  let answer = '';
+
+  const newStr = "#" + s.split("").join("#") + "#";
+
+  let maxCenter = 0;
+  let maxRadius = 0;
+
+  let cursor = 1;
+  const radiusArr = Array(newStr.length).fill(0);
+
   while (cursor < newStr.length) {
-    const tempAns = getPalindrome(cursor, newStr);
-    if (tempAns.length > answer.length) { answer = tempAns; }
+    let left = cursor -1;
+    let right = cursor +1;
+
+    const maxRight = maxCenter + maxRadius;
+    const maxLeft = maxCenter - maxRadius;
+    if(cursor < maxRight){
+      // find left mirror radius
+      const leftCursor = maxCenter - (cursor - maxCenter);
+      const mirrorRadius = radiusArr[leftCursor] || 1;
+      // console.log('cursor', cursor,'maxRight',maxRight, 'maxCenter', maxCenter, 'leftCursor' ,leftCursor, 'mirrorRadius', mirrorRadius, 'maxLeft', maxLeft);
+      // console.table([radiusArr, newStr.split('')]);
+      if((leftCursor - mirrorRadius) > maxLeft){
+        left = cursor - mirrorRadius;
+        right = cursor + mirrorRadius;
+      }
+    }
+
+
+    while(left >= 0 && right <= (newStr.length-1) && newStr[left] === newStr[right]){
+      const radius = right - cursor;
+      // console.log('find', newStr.substring(left, right + 1), 'radius', radius);
+      radiusArr[cursor] = radius;
+      
+      if(radius > maxRadius){
+        maxRadius = radius;
+        maxCenter = cursor
+      }
+      
+      left--;
+      right++
+    }
+
     cursor++;
   }
-  return answer;
-};
 
+  // console.log(newStr);
+  // console.log(radiusArr.join(','));
+
+  const ans = newStr
+    .substring(maxCenter - maxRadius, maxCenter + maxRadius + 1)
+    .replace(/#/g, "");
+  return ans;
+};
 
 module.exports = longestPalindrome;
