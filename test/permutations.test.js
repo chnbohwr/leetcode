@@ -12,4 +12,12 @@ describe("first", () => {
       [3, 2, 1],
     ]);
   });
+
+  test("should second", () => {
+    const result = func([0, 1]);
+    expect(result).toEqual([
+      [0, 1],
+      [1, 0],
+    ]);
+  });
 });
